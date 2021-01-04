@@ -146,7 +146,7 @@ Distributed under the APACHE-2 License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@troykelly](http://keybase.io/troykelly) - hello@aperim.com
+Troy - [@troykelly](http://keybase.io/troykelly) - hello@aperim.com
 
 Project Link: [https://github.com/aperim/docker-opencanary](https://github.com/aperim/docker-opencanary)
 
