@@ -96,7 +96,7 @@ Not much - you need docker (or any other suitable container system such as [Podm
 1. Get ready
 2. Start the container
    ```sh
-   $ docker run -d --network host --name opencanary --restart always aperimau/opencanary
+   $ docker run -d --network host --name opencanary --restart always ghcr.io/aperim/opencanary:latest
    ```
 3. Watch those logs
    ```sh
@@ -109,7 +109,7 @@ Not much - you need docker (or any other suitable container system such as [Podm
 
 You will get nearly no value out of OpenCanary unless you supply your own configuration file. To run the container and supply your own configuration file - do something like:
 ```sh
-  $ docker run -d --network host --name opencanary --restart always -v ~/opencanary.conf:/etc/opencanaryd/opencanary.conf aperimau/opencanary 
+  $ docker run -d --network host --name opencanary --restart always -v ~/opencanary.conf:/etc/opencanaryd/opencanary.conf ghcr.io/aperim/opencanary:latest 
 ```
 
 _For more details about the configuration file, please refer to the OpenCanary [Documentation](https://opencanary.readthedocs.io/en/latest/)_

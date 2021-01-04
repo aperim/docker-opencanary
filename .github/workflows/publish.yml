@@ -12,6 +12,18 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
+        name: Prepare
+        id: prepare
+        run: |
+          VERSION=edge
+
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          fi
+
+          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=build_date::$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       -
@@ -38,6 +50,12 @@ jobs:
           file: ./Dockerfile
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           push: true
+          build-args: |
+              VERSION=${{ steps.prepare.outputs.version }}
+              BUILD_DATE=${{ steps.prepare.outputs.build_date }}
+              VCS_REF=${GITHUB_SHA::8}
           tags: |
             aperimau/opencanary:latest
+            aperimau/opencanary:v${{ steps.prepare.outputs.version }}
             ghcr.io/aperim/opencanary:latest
+            ghcr.io/aperim/opencanary:v${{ steps.prepare.outputs.version }}

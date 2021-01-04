@@ -23,6 +23,18 @@ RUN apt-get update && \
     pip install opencanary-*.tar.gz
 
 FROM python:3-buster
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+LABEL org.label-schema.build-date=$BUILD_DATE \
+  org.label-schema.name="OpenCanary" \
+  org.label-schema.description="Container for OpenCanary" \
+  org.label-schema.url="https://github.com/thinkst/opencanary" \
+  org.label-schema.vcs-ref=$VCS_REF \
+  org.label-schema.vcs-url="https://github.com/aperim/docker-opencanary" \
+  org.label-schema.vendor="Aperim Pty Ltd" \
+  org.label-schema.version=$VERSION \
+  org.label-schema.schema-version="1.0"
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -qq -y full-upgrade && \
@@ -46,6 +58,7 @@ RUN sed -i --regexp-extended 's/^(\s+".*\.enabled": )false,/\1true,/g' /etc/open
     sed -i --regexp-extended 's/^(\s+"rdp.enabled": )true,/\1false,/g' /etc/opencanaryd/opencanary.conf && \
     sed -i --regexp-extended 's/^(\s+"portscan.enabled": )true,/\1false,/g' /etc/opencanaryd/opencanary.conf && \
     cat /etc/opencanaryd/opencanary.conf
+
 
 EXPOSE 1433/tcp
 EXPOSE 8001/tcp
